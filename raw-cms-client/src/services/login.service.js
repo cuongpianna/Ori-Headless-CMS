@@ -1,5 +1,6 @@
 import store from "../store";
 import axios from "axios";
+import {VUE_APP_BASE_API} from "../constants/common"
 
 class LoginService{
     _auth;
@@ -13,7 +14,6 @@ class LoginService{
     }
 
     get isLoggedIn() {
-        console.log(store.state.auth.isLoggedIn);
         if(!store.state.auth.isLoggedIn) {
             this._refreshLoginState();
         }
@@ -31,8 +31,7 @@ class LoginService{
         params.append('username', username);
 
         console.log(username, password)
-        return axios.post('http://localhost:5000/connect/token', params).then(res => {
-            console.log(res);
+        return axios.post(`${VUE_APP_BASE_API}/connect/token`, params).then(res => {
             this._auth = res.data;
             localStorage.setItem('auth', JSON.stringify(res.data));
             this._refreshLoginState();

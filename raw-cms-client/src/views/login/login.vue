@@ -111,6 +111,13 @@ export default {
       }catch (e) {
         console.log(e)
       }
+
+      if (this.$route.params.nextUrl != null) {
+        this.$router.push(this.$route.params.nextUrl);
+        return;
+      }
+
+      this.$router.push({ name: 'schemas' });
     }
   }
 }
